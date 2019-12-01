@@ -4,7 +4,7 @@ ToDo:
 	1.  
 	* find explorer PID from binary (not as argument)! (DONE)  
 	* obfuscate code; (DONE)  
-	* Opsec Safe injection - no RWX, but RW -> RX; (DONE)
+	* Opsec Safe injection - no RWX, but RW -> RX; (DONE)  
 	2.  
 	* Integrate with TikiTorch not to inject, but hollow!  
 	3.  
