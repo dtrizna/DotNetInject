@@ -2,7 +2,7 @@ import donut
 import sys
 import os
 import ntpath
-
+from base64 import b64encode as b64e
 
 # PARSE SCRIPT ARGUMENTS
 
@@ -44,8 +44,13 @@ else:
 head,tail = ntpath.split(filename)
 sc_filename = tail.split('.')[0]+'{}'.format(arch)+'.bin'
 sc_filepath = os.path.join(os.getcwd(),sc_filename)
-print(sc_filepath)
 filesc = open(sc_filepath,'wb')
 length = filesc.write(sc)
 filesc.close()
 print(f"[+] Shellcode of {length} bytes written in:\n    {sc_filepath}")
+
+# WRITE BASE64 VERSION
+fileb = open(sc_filepath+'.b64','w')
+fileb.write(b64e(sc).decode())
+fileb.close()
+print(f"[+] Base64 version is written to:\n    {sc_filepath}.b64")
