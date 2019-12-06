@@ -6,7 +6,8 @@ ToDo:
 	* obfuscate code; (DONE)  
 	* Opsec Safe injection - no RWX, but RW -> RX; (DONE)  
 	2.  
-	* Integrate with TikiTorch not to inject, but hollow!  
+	* Integrate with TikiTorch not to inject, but hollow! (DONE)  
+	  Note! Need to Compile and Obfuscate TikiTorch manually!  
 	3.  
 	* prepare binaries from 1. and 2., so can run using lolbins  
 	4.  
