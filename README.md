@@ -1,6 +1,6 @@
 # .NET injection PoC 
 
-Repository contains code samples weaponized for use with Covenant (https://github.com/cobbr/Covenant) and donut (https://github.com/TheWover/donut).
+Repository contains code samples weaponized for use with Covenant (https://github.com/cobbr/Covenant) and donut (https://github.com/TheWover/donut) and TikiTorch (https://github.com/rasta-mouse/TikiTorch).
 
 Techniques are partially described under this writing:
 https://medium.com/@ditrizna/red-team-use-case-of-open-source-weaponization-5b22b0e287a5
