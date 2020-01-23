@@ -1,14 +1,13 @@
-# .NET_inject
-  
-ToDo:  
-	1.  
-	* find explorer PID from binary (not as argument)! (DONE)  
-	* obfuscate code; (DONE)  
-	* Opsec Safe injection - no RWX, but RW -> RX; (DONE)  
-	2.  
-	* Integrate with TikiTorch not to inject, but hollow! (DONE)  
-	  Note! Need to Compile and Obfuscate TikiTorch manually!  
-	3.  
-	* prepare binaries from 1. and 2., so can run using lolbins  
-	4.  
-	* add persistence already in HTA/.NET stage?
+# .NET injection PoC 
+
+Repository contains code samples weaponized for use with Covenant (https://github.com/cobbr/Covenant) and donut (https://github.com/TheWover/donut).
+
+Techniques are partially described under this writing:
+https://medium.com/@ditrizna/red-team-use-case-of-open-source-weaponization-5b22b0e287a5
+
+Injection that does not relies on RWX right permissions is located under `PAYLOAD_INJECT/inject_rw_rx.cs`
+Delivery that does not uses mshta.exe instead of WebDav is located under `download_compile_and_exec.hta`.
+
+Potential improvements:  
+	* adding an execution methods to `PAYLOAD_INJECT` samples in order to launch using installutil.exe, regsvr.exe  
+	* adding a persistence already in `PAYLOAD EXEC` stage
